@@ -49,7 +49,8 @@ function main() {
                     longitudeEl.iner
                     sunriseEl.innerText = data.results.sunrise;
                     sunsetEl.innerText = data.results.sunset;
-                });
+                })
+                .catch(error => console.log(error));
         })
     }
 
