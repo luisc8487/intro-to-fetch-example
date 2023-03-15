@@ -15,9 +15,16 @@ function main() {
     // Astronomical Image
 
     // Fetch for the astronomical image here
+    // const fetchPromise = fetch('https://go-apod.herokuapp.com/apod');
+    // // fetch returns a Promise object
 
-
-
+    fetch('https://go-apod.herokuapp.com/apod')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data, "hi 1");
+            astroImageEl.src = data.hdurl;
+        })
+        .catch(error => console.log(error));
     // Sunset/Sunrise 
 
     latitudeEl.innerText = `Latitude: Loading...`;
@@ -33,7 +40,16 @@ function main() {
             let lat = position.coords.latitude;
 
             // Fetch sunrise/sunset data here
-
+            fetch(`https://api.sunrisesunset.io/json?lat=${lat}&lng=${long}&timezone=UTC&date=today`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data.results)
+                    latitudeEl.innerText = lat;
+                    longitudeEl.innerText = long;
+                    longitudeEl.iner
+                    sunriseEl.innerText = data.results.sunrise;
+                    sunsetEl.innerText = data.results.sunset;
+                });
         })
     }
 
